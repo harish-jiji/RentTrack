@@ -19,7 +19,11 @@ function BookProperty() {
             .then(() => navigate("/user/bookings"))
             .catch(err => {
                 console.error(err);
-                setError("Booking failed. Please check dates and try again.");
+                if (err.response && err.response.data) {
+                    setError("Booking failed: " + JSON.stringify(err.response.data));
+                } else {
+                    setError("Booking failed. Please check dates and try again.");
+                }
             });
     };
 

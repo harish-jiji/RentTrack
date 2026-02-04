@@ -25,10 +25,10 @@ def admin_dashboard(request):
 def admin_properties(request):
     if request.method == 'GET':
         props = Property.objects.all()
-        return Response(PropertySerializer(props, many=True).data)
+        return Response(PropertySerializer(props, many=True, context={'request': request}).data)
 
     if request.method == 'POST':
-        serializer = PropertySerializer(data=request.data)
+        serializer = PropertySerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -43,7 +43,7 @@ def admin_property_detail(request, id):
         return Response({"error": "Property not found"}, status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        serializer = PropertySerializer(prop, data=request.data) # partial=True maybe?
+        serializer = PropertySerializer(prop, data=request.data, context={'request': request}) # partial=True maybe?
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

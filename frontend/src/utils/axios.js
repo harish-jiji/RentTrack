@@ -3,7 +3,7 @@ import axios from 'axios';
 const api = axios.create({
     baseURL: 'http://127.0.0.1:8000/api/',
     headers: {
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json', // Let axios set this automatically
     }
 });
 
@@ -27,6 +27,8 @@ api.interceptors.response.use(
             // Token expired or invalid
             console.warn("Session expired. Logging out.");
             localStorage.removeItem("token");
+            localStorage.removeItem("role");
+            localStorage.removeItem("username");
             localStorage.removeItem("user");
             // Optional: Redirect to login page
             window.location.href = "/login";
