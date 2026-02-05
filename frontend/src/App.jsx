@@ -43,8 +43,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/properties" element={<><Navbar /><Properties /></>} />
           <Route path="/properties/:id" element={<><Navbar /><PropertyDetails /></>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<><Navbar /><Login /></>} />
+          <Route path="/register" element={<><Navbar /><Register /></>} />
 
           {/* User Routes */}
           <Route element={<UserRoute roleRequired="USER" />}>
